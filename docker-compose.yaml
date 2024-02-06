@@ -1,0 +1,95 @@
+version: "3.9"
+services:
+  rabbitmq-1:
+    container_name: rabbitmq-1
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: luka
+      RABBITMQ_DEFAULT_PASS: lukaluka123
+    volumes:
+      - ./rabbitmq1:/var/lib/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+ 
+  mysql:
+    image: 'mysql'
+    ports:
+      - '3307:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+    env_file:
+      - ./mysql/.env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${MYSQL_ROOT_USERNAME}", "--password=${MYSQL_ROOT_PASSWORD}"]
+      timeout: 10s
+      retries: 5
+
+  backend1:
+    build: ./security
+    ports:
+      - '9000:8443'
+    environment:
+      - MYSQL_SERVER_URL=jdbc:mysql://mysql:3306/security?createDatabaseIfNotExist=true
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=rootroot
+    volumes:
+      - logs:/opt/securityBackApp1/log
+    env_file:
+      - ./security/.env
+    depends_on:
+      - mysql
+      - rabbitmq-1
+   
+  backend2:
+    build: ./security
+    ports:
+      - '9001:8443'
+    environment:
+      - MYSQL_SERVER_URL=jdbc:mysql://mysql:3306/security?createDatabaseIfNotExist=true
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=rootroot
+    volumes:
+      - logs:/opt/securityBackApp1/log
+    env_file:
+      - ./security/.env
+    depends_on:
+      - mysql
+      - rabbitmq-1
+
+  backend3:
+    build: ./security
+    ports:
+      - '9002:8443'
+    environment:
+      - MYSQL_SERVER_URL=jdbc:mysql://mysql:3306/security?createDatabaseIfNotExist=true
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=rootroot
+    volumes:
+      - logs:/opt/securityBackApp1/log
+    env_file:
+      - ./security/.env
+    depends_on:
+      - mysql
+      - rabbitmq-1
+
+  message-listener:
+    build: ./security-listener
+    ports:
+      - '9005:9000'
+    environment:
+      - MYSQL_SERVER_URL=jdbc:mysql://mysql:3306/security?createDatabaseIfNotExist=true
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=rootroot
+    volumes:
+      - logs:/opt/securityBackApp1/log
+    env_file:
+      - ./security-listener/.env
+    depends_on:
+      - backend1
+      - backend2
+      - backend3
+
+volumes:
+  mysql-data:
+  logs:

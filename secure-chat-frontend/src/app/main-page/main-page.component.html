@@ -1,0 +1,69 @@
+<p>
+    <mat-toolbar style="background-color: #3f51b5">
+        <span>
+            <img class="web-shop-logo" src="assets/images/logo-white.png">
+        </span>
+        <label style="color: white;">Dobrodosao {{getUsername()}} !</label>
+        <div class="spacer"></div>
+      
+         <a style="color: white;" (click)="logout()">Odjavi se</a>
+    </mat-toolbar>
+  </p>
+<mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="fetchInformation()">
+    <mat-tab label="Inbox" value="1" style="display: flex;flex-direction: row;">
+        <div class="row">
+            <div class="column" style="flex: 2;" class="inbox">
+                <mat-label>
+                    <h1 style="color: #3f51b5;">Received messages:</h1>
+                </mat-label>
+                <mat-list *ngFor="let message of messages">
+                    <mat-list-item (click)="showMessage(message)" class="list-item" style="color: white;">
+                        <div style="color: white;">
+                            Message from {{message.sender}}
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            
+             </div>
+            <div class="column, view-message" style="flex:5">
+                <mat-card>
+                    <div *ngIf="selectedMessage">
+                        <h1 class="message-title">Message from {{selectedMessage.sender}}</h1>
+                        <p class="message">{{selectedMessage.content}}</p>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+       
+   
+    </mat-tab>
+    <mat-tab label="Send message" value="2">
+        <div class="column" style="flex:5"   >
+        
+            <form class="column" style="display: flex;flex-direction:column" (ngSubmit)="onSubmit()" style="padding:100px" >
+                <mat-form-field style="display: flex;height: 250px;">
+                    <mat-label >Unesi poruku</mat-label>
+                    <textarea [(ngModel)]="newMessage" type="text" name="newMessage" id="newMessage" matInput required style="height: 600px;"></textarea>
+                </mat-form-field>
+                <div class="row">
+                    <div style="flex:1">
+                        <mat-select class="select"  placeholder="Select the receiver" [(ngModel)]="receiverId" name="userSelect" id="userSelect" style="flex:1; color:#3f51b5" required>
+                            <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.username}}</mat-option>
+                        </mat-select>
+                    </div>
+                    <div style="flex: 1;">
+                        <button mat-button type="submit" style="flex:1;color: white;" class="button-design">Posalji</button>
+                    </div>
+                    
+                    
+                </div>
+                
+            </form>
+            
+        </div>
+    </mat-tab>
+</mat-tab-group>
+<div class="row">
+    
+
+</div>

@@ -1,0 +1,24 @@
+<div class="center">
+    <img class="web-shop-logo" src="assets/images/logo-purple.png">
+    <h1 style="color:  #3f51b5;">REGISTER</h1>
+    <form (ngSubmit)="onSubmit()" class="column">
+        <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input matInput [(ngModel)]="username" type="text" name="username" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput [(ngModel)]="password" type="password" name="password" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Confirm password</mat-label>
+            <input matInput [(ngModel)]="confirmPassword" type="password" name="password" required>
+        </mat-form-field>
+        
+        <button mat-button type="submit" >Registruj se</button>
+    </form>
+    <div>
+        Imas nalog?
+        <a href="">Uloguj se</a>
+    </div>
+</div>

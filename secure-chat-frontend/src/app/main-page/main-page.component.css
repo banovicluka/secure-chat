@@ -1,0 +1,67 @@
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.column{
+    display: column;
+    flex-direction: column;
+}
+
+.view-message{
+    margin:75px;
+}
+
+.list-item{
+    /* border:2px solid black; */
+    background-color: #3f51b5;
+    color:white;
+    border-radius: 4px;
+}
+
+.center{
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.inbox{
+    margin: 75px;
+    max-height: 500px;
+    overflow-y: scroll;
+    /* border:1px solid rgb(52, 3, 92) */
+}
+
+.spacer{
+    flex: 1;
+}
+
+.button-design{
+    background-color: #3f51b5;
+    height: 50px;
+    width: 120px;
+    border: transparent;
+    border-radius: 4px;
+  }
+
+  .message-title{
+    color: #3f51b5
+  }
+
+  .message{
+      color:#3f51b5;
+      font-size: 18px;
+  }
+
+  .select{
+    height: 100%;
+    width: 50%;
+    margin-left: 40px;
+    margin-top: 15px;
+  }
+
+  .web-shop-logo{
+    width: 200px;
+    height: 130px;
+  }
