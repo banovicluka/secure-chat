@@ -8,3 +8,4 @@ Background service (message-listener) is collecting message parts from queue, co
 
 Message listener, every backend service, MySQL database and RabbitMQ server are deployed on Docker using a docker-compose file. 
 
+
